@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "segmentscan"
+version = "0.1.0"
+description = "Find segments whose yes/no rate beats a threshold, confirm them on held-out data, and control false discoveries."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Prashant Lohar", email = "120216391+prashant7799@users.noreply.github.com" },
+]
+keywords = [
+    "subgroup discovery",
+    "false discovery rate",
+    "benjamini-hochberg",
+    "multiple testing",
+    "segmentation",
+    "binomial test",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.11",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "hypothesis>=6.80",
+    "ruff>=0.17,<0.18",  # pinned to one minor version so new lint rules cannot break CI
+]
+
+[project.scripts]
+segmentscan = "segmentscan.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/prashant7799/segmentscan"
+Issues = "https://github.com/prashant7799/segmentscan/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/segmentscan"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
